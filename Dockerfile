@@ -33,6 +33,16 @@ RUN cd zookeeper && cp conf/zoo_sample.cfg conf/zoo.cfg
 RUN curl http://www.us.apache.org/dist/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz | tar xz
 RUN mv kafka* kafka
 
+#Play
+RUN wget http://downloads.typesafe.com/play/2.2.3/play-2.2.3.zip && \
+    unzip play*
+RUN rm play*zip && mv play* play
+
+#Web console
+RUN curl -L https://github.com/claudemamo/kafka-web-console/archive/v2.0.0.tar.gz | tar xz
+RUN mv kafka-web-console-* kafka-web-console
+RUN cd kafka-web-console && /play/play stage 
+
 #Add runit services
 ADD sv /etc/service 
 

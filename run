@@ -1,1 +1,1 @@
-docker run -p 6667:6667 -p 2181:2181 -v /var/log:/var/log -d -t kafka
+docker run -p 9092:9092 -p 2181:2181 -p 9000:9000 -v /var/log:/var/log -d -t kafka
