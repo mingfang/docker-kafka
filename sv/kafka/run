@@ -1,8 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
-sv start zookeeper || exit 1
+#sv start socklog-unix || exit 1
 
-cd /kafka
+source /etc/envvars
+env
+
+cd /kafka/bin
 
 exec 2>&1
-exec ./bin/kafka-server-start.sh config/server.properties
+exec ./kafka-server-start.sh ../config/server.properties 

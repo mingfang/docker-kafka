@@ -1,3 +1,0 @@
-#!/bin/sh
-exec 2>&1
-exec /zookeeper/bin/zkServer.sh start-foreground
