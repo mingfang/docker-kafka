@@ -1,4 +1,4 @@
 docker-kafka
 ============
 
-Run Kafka and Zookeeper inside Docker
+Run Kafka Inside Docker
