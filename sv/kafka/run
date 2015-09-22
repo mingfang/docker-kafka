@@ -6,6 +6,12 @@ source /etc/envvars
 env
 
 cd /kafka/bin
+if [ ${ADVERTISED_HOST} ]; then
+  sed -i -e "s|#advertised.host.name=.*|advertised.host.name=${ADVERTISED_HOST}|" ../config/server.properties
+fi
+if [ ${ZOOKEEPER_HOST} ]; then
+  sed -i -e "s|zookeeper.connect=.*|zookeeper.connect=${ZOOKEEPER_HOST}|" ../config/server.properties
+fi
 
 exec 2>&1
 exec ./kafka-server-start.sh ../config/server.properties 
