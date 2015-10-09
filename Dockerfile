@@ -21,7 +21,7 @@ RUN add-apt-repository ppa:webupd8team/java -y && \
     apt-get install -y oracle-java8-installer
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
-RUN wget -O - http://www.us.apache.org/dist/kafka/0.8.2.1/kafka_2.11-0.8.2.1.tgz | tar zx
+RUN wget -O - http://www.us.apache.org/dist/kafka/0.8.2.2/kafka_2.11-0.8.2.2.tgz | tar zx
 RUN mv kafka* kafka
 
 COPY server.properties /kafka/config/
