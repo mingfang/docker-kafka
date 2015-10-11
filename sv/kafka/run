@@ -6,11 +6,25 @@ source /etc/envvars
 env
 
 cd /kafka/bin
+
+if [ ${BROKER_ID} ]; then
+  sed -i -e "s|broker.id=.*|broker.id=${BROKER_ID}|" ../config/server.properties
+fi
+
 if [ ${ADVERTISED_HOST} ]; then
   sed -i -e "s|#advertised.host.name=.*|advertised.host.name=${ADVERTISED_HOST}|" ../config/server.properties
 fi
+
 if [ ${ZOOKEEPER_HOST} ]; then
   sed -i -e "s|zookeeper.connect=.*|zookeeper.connect=${ZOOKEEPER_HOST}|" ../config/server.properties
+fi
+
+if [ ${LOG_RETENTION_HOURS} ]; then
+  sed -i -e "s|log.retention.hours=.*|log.retention.hours=${LOG_RETENTION_HOURS}|" ../config/server.properties
+fi
+
+if [ ${LOG_RETENTION_BYTES} ]; then
+  sed -i -e "s|#log.retention.bytes=.*|log.retention.bytes=${LOG_RETENTION_BYTES}|" ../config/server.properties
 fi
 
 exec 2>&1
