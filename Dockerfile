@@ -4,6 +4,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 RUN locale-gen en_US en_US.UTF-8
 ENV LANG en_US.UTF-8
+ENV TERM xterm
 RUN echo "export PS1='\e[1;31m\]\u@\h:\w\\$\[\e[0m\] '" >> /root/.bashrc
 
 #Runit
@@ -21,7 +22,7 @@ RUN add-apt-repository ppa:webupd8team/java -y && \
     apt-get install -y oracle-java8-installer
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
-RUN wget -O - http://www.us.apache.org/dist/kafka/0.8.2.2/kafka_2.11-0.8.2.2.tgz | tar zx
+RUN wget -O - http://www.us.apache.org/dist/kafka/0.9.0.1/kafka_2.11-0.9.0.1.tgz | tar zx
 RUN mv kafka* kafka
 
 COPY server.properties /kafka/config/
