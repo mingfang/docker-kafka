@@ -1,3 +1,4 @@
 #!/bin/bash
+source helper
 
-docker run -v `pwd`:/docker -w /docker --rm -it kafka /bin/bash
+docker run -v `pwd`:/docker -w /docker --rm -it ${IMAGE} /bin/bash
