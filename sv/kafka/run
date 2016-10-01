@@ -3,7 +3,6 @@
 #sv start socklog-unix || exit 1
 
 source /etc/envvars
-env
 
 cd /kafka/bin
 
