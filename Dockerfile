@@ -30,6 +30,8 @@ RUN mv kafka* kafka
 
 COPY server.properties /kafka/config/
 
+ENV LOG_DIR /var/log/kafka
+
 # Add runit services
 COPY sv /etc/service 
 ARG BUILD_INFO
