@@ -1,18 +1,17 @@
 FROM ubuntu:16.04 as base
 
-ENV DEBIAN_FRONTEND=noninteractive \
-    LANG=en_US.UTF-8 \
-    TERM=xterm
+ENV DEBIAN_FRONTEND=noninteractive TERM=xterm
 RUN echo "export > /etc/envvars" >> /root/.bashrc && \
-    echo "export PS1='\e[1;31m\]\u@\h:\w\\$\[\e[0m\] '" | tee -a /root/.bashrc /etc/bash.bashrc && \
-    echo "alias tcurrent='tail /var/log/*/current -f'" | tee -a /root/.bashrc /etc/bash.bashrc
+    echo "export PS1='\[\e[1;31m\]\u@\h:\w\\$\[\e[0m\] '" | tee -a /root/.bashrc /etc/skel/.bashrc && \
+    echo "alias tcurrent='tail /var/log/*/current -f'" | tee -a /root/.bashrc /etc/skel/.bashrc
 
 RUN apt-get update
-RUN apt-get install -y locales && locale-gen en_US en_US.UTF-8
+RUN apt-get install -y locales && locale-gen en_US.UTF-8 && dpkg-reconfigure locales
+ENV LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 
 # Runit
 RUN apt-get install -y --no-install-recommends runit
-CMD export > /etc/envvars && /usr/sbin/runsvdir-start
+CMD bash -c 'export > /etc/envvars && /usr/sbin/runsvdir-start'
 
 # Utilities
 RUN apt-get install -y --no-install-recommends vim less net-tools inetutils-ping wget curl git telnet nmap socat dnsutils netcat tree htop unzip sudo software-properties-common jq psmisc iproute python ssh rsync gettext-base
@@ -26,7 +25,7 @@ RUN add-apt-repository ppa:webupd8team/java -y && \
     rm -r /var/cache/oracle-jdk8-installer
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
-RUN wget -O - http://www.us.apache.org/dist/kafka/0.10.2.1/kafka_2.12-0.10.2.1.tgz | tar zx
+RUN wget -O - http://www.us.apache.org/dist/kafka/0.11.0.0/kafka_2.12-0.11.0.0.tgz | tar zx
 RUN mv kafka* kafka
 
 COPY server.properties /kafka/config/
